@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--[if IE 8]> 				 <html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+
+<head>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>todoisk</title>
+
+  
+  <link rel="stylesheet" href="../css/foundation.css">
+  
+  <style>
+
+  	input {
+  		border-radius: 10px;
+  	}
+  	
+  	.header {
+  		border-bottom: 1px solid #eee;
+  	}
+  
+  	.itemToDo {
+  		display: block;
+  		padding:.2em .5em;
+  		margin-top: .3em;
+  	}
+  	
+  	.itemToDo:hover {
+  		background-color: #eee;
+  		text-decoration: line-through;
+  		display: block;
+  		border-radius: 10px;
+  		
+  	}
+  	
+  	.completed {
+  		text-decoration: line-through;
+  	}
+  	
+  	h1 {
+  		margin-bottom:0;
+  	}
+  	
+  	small {
+  		padding-bottom: 1em;
+  		display:block;
+  	}
+
+  </style>
+
+  <script src="../js/vendor/custom.modernizr.js"></script>
+
+</head>
+<body>
+
+<div class="row">
+	<div class="twelve columns">
+		
+		<div class="header">
+			<div class="row">
+				<div class="eight columns text-center">
+					<h1>todoski</h1>
+					<small>simplest to do list maker</small>
+				</div>
+			</div>
+	
+			<div class="row">
+				<div class="large-8 push-2 columns">
+					<input id="toDoItem" type="text" placeholder="what do you have to todoski?" /> 
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="twelve column">
+				<div class="row">
+					<div class="large-8 push-2 columns">
+						<ul id="itemsToDo">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>	
+</div>
+	
+
+
+  
+  <script src="../js/foundation.min.js"></script>
+  
+  <script>
+  	if (typeof localStorage.length != "number") {
+		alert("Sorry this browser doesn't support local storage");
+	}
+  </script>
+  
+
+  
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+	
+	
+	<script src="init.js"></script>
+	<script src="messages.js"></script>
+	<script src="todo.js"></script>
+
+</body>
+</html>
