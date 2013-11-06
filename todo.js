@@ -1,5 +1,3 @@
-
-
 //add items to to do list and to local storage upon inserting them into the text field
 $('#toDoItem').bind('keypress', function(e) {
 	if (e.which === 13) { 
@@ -14,25 +12,10 @@ $('#toDoItem').bind('keypress', function(e) {
 		}
 		
 		listItemToDo.appendTo(itemsToDo); //add To Do to Da list
-		
 		localStorage.setItem(toDoValue, toDoValue); // add items to the storage
-		
-		toDoItem.val(''); //empty the form field w/Nada post appending
+		toDoItem.val(''); 
 	}
 });
-
-/*delete the done completely
-$('#deleteDone').on('click', function(e) {
-	var storageLength = localStorage.length++;
-	
-	for (var i = 0; i < storageLength; i++) {
-		var completedTask = $('.completed').eq(i).text();
-		localStorage.removeItem(completedTask + '-completed'); //remove items from the storage
-	}
-	
-	$('.completed').remove();
-});
-*/
 
 //toggle the item as completed
 $(document).on( 'click','.itemToDo', function(e) {
@@ -49,10 +32,3 @@ $(document).on( 'click','.itemToDo', function(e) {
 
 	target.toggleClass('completed');
 });
-
-
-
-
-
-
-
