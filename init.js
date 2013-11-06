@@ -7,12 +7,11 @@ $(function(){
 		listItemToDo;
 	
 	for (var i = 0; i < storageLength; i++ ) {
-		//console.log(localStorage.key(i));
-		var key = localStorage.key(i),
+			key = localStorage.key(i),
 			value = localStorage[key]
 			itemsToDo = $('#itemsToDo'),
 			listItemToDo = $('<li class="itemToDo">' + value + '</li>');
-			listItemToDo.appendTo(itemsToDo);  ////////////////////////////change this to a docFrag type and append to dom at end
+			listItemToDo.appendTo(itemsToDo);
 	}
 });
 
