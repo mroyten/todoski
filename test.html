@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Refactored date examples</title>
+	<link rel="stylesheet" href="css/qunit-1.14.0.css">
+	<script src="js/qunit.js"></script>
+	<script src="js/jq.js"></script>
+	<script src="js/init.js"></script>
+	<script src="js/messages.js"></script>
+	<script src="js/todo.js"></script>
+	
+	<script>
+		function storageTest(type, key, value) {
+			test( type, function() {
+				var key = key;
+				equal( TD.addStorage(value), localStorage['td_' + value]=value, "We expect value to be hello" );
+			});
+		};
+	</script>
+</head>
+
+	<body>
+		<div id="qunit"> </div>
+	</body>
+	
+	
+
+</html>

@@ -1,0 +1,34 @@
+input {
+	border-radius: 10px;
+}
+
+.header {
+	border-bottom: 1px solid #eee;
+}
+
+.itemToDo {
+	display: block;
+	padding:.2em .5em;
+	margin-top: .3em;
+}
+
+.itemToDo:hover {
+	background-color: #eee;
+	text-decoration: line-through;
+	display: block;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.completed {
+	text-decoration: line-through;
+}
+
+h1 {
+	margin-bottom:0;
+}
+
+small {
+	padding-bottom: 1em;
+	display:block;
+}
