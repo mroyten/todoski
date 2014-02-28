@@ -29,33 +29,6 @@ TD = {
 	},
 	
 	/*
-	 * add item to LocalStorage
-	 * param@ toDoItem : string - item to do 
-	 * param@ domIndex : string - dom index number
-	 */
-	addStorage: function(toDoItem, domIndex) {
-		var toDoKey;
-		
-		if (domIndex) {
-			toDoKey = this.prefix + domIndex + toDoItem;	// if item isn't at the end of dom index
-		} else {
-			toDoKey = this.prefix + this.index() + toDoItem;	//send to end of children's list
-		}
-		
-		localStorage.setItem(toDoKey, toDoKey);
-	},
-	
-	/*
-	 * remove item to LocalStorage
-	 * param@ toDoItem : string - item to do 
-	 * param@ domIndex : string - dom index number
-	 */
-	removeStorage: function(toDoItem, domIndex) {
-		var toDoKey = this.prefix + domIndex + toDoItem;
-		localStorage.removeItem(toDoKey);
-	},
-	
-	/*
 	 * add item to DOM
 	 * param@ toDoItem : string - item to do 
 	 */
@@ -70,82 +43,51 @@ TD = {
 	 * rename the keys according the their current index
 	 */
 	reNameKeys : function() {
-		var listing = $('#itemsToDo').children().not('.ui-sortable-placeholder').toArray();
-		var count = 0;
-		var zero = '0';
-		var td_ = this.prefix;
+		var listing = $('#itemsToDo').children().not('.ui-sortable-placeholder').toArray(),
+			count = 0,
+			zero = '0',
+			self = this;
+			td_ = self.prefix;
 		
+		//clear the keys - TODO add function here to loop through keys to remove keys that start with 'td_' 
 		this.clearKeys();
 		
 		$.each(listing, function() {
 			count++;
-			var value = this.innerHTML;
-			var $this = $(this);
-			var key = td_ + value;
-			var newValue; 
-			var newPrefix,
-				theNewVal;
+			var value = this.innerHTML,
+				$this = $(this),
+				theNewVal = td_ + self.digit(count) + value;
 			
-			if (count <= 9) {
-				newPrefix = td_ + zero + count;
-			} else {
-				newPrefix = td_ + count;
-			}
-
-			theNewVal = newPrefix + value;
-			
-			if ($this.hasClass('completed')) {	//do not set items that are set to completede
-				count--;
-			} else {
-				newValue = localStorage.setItem(theNewVal, theNewVal);
-			}
-		})
+			//do not set items that are set to have been 'completed'
+			($this.hasClass('completed')) ?	count-- : localStorage.setItem(theNewVal, theNewVal)
+		});
 	},
 	
 	//TODO iterate over localStorage and pull out the prefix keys of 'td_'
 	clearKeys : function() {
 		localStorage.clear();
+	},
+	
+	//add a function to 1st arg to apply to each localStorage 
+	storageValues : function(fn) {
+		var storageLength = localStorage.length,
+			i, key, prefix, value, index, valuePrefix;
+			
+		for (i = 0; i < storageLength; i++ ) {
+			key = localStorage.key(i),
+			prefix = key.slice(0,3),		//slice off the td_ prefix
+			valuePrefix = key.slice(5); 	//slice off the count
+			
+			if (prefix !== this.prefix) continue;	//only publish todos with proper prefix
+			
+			fn(valuePrefix);
+		}
 	}
 };
 
-//dynamic thingys
 $(document).ready(function() {
-	$('#itemsToDo').sortable({ cancel: '.completed',
-		beforeStop: function(event, ui) {
-			TD.reNameKeys();
-		}
-	});	
-	
-	$('#toDoItem').droppable({
-		drop: function(event, ui) {
-			var uiContent = ui.draggable,
-				$this = $(this),
-				toDoItem = uiContent.text();
-			
-			$this.val(toDoItem);		//set the value of the input to the text of item dragged into it
-			TD.removeStorage(toDoItem);	//remove that item's value from local storage
-			$(uiContent.remove());		//remove that item from the Dom
-		}
-	});
+	// Build all of the remaining to Dos from Local Storage	
+	TD.storageValues(TD.addToDom);
 });
 
-// Build all of the remaining to Dos from Local Storage	
-$(document).ready(function(){
-	var storageLength = localStorage.length,
-		i, key, prefix, value, index, valuePrefix;
-		
-	for (i = 0; i < storageLength; i++ ) {
-		key = localStorage.key(i),
-		prefix = key.slice(0,3),		//slice off the td_ prefix
-		value = localStorage[key],
-		valuePrefix = value.slice(5); 	//slice of the count
-		
-		index = $('.itemToDo').length;
-		
-		if (prefix !== TD.prefix) continue;	//only publish todos with proper prefix
-		
-		TD.addToDom(valuePrefix);
-		console.log(valuePrefix, index);			
-	}
 
-});

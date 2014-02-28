@@ -10,7 +10,7 @@ $(document).on('keypress', '#toDoItem', function(e) {
 		}
 		
 		TD.addToDom($toDoValue);		//add To Do to Da list
-		TD.addStorage($toDoValue);		// add items to the storage
+		TD.reNameKeys();
 		$this.val(''); 
 	}
 });
@@ -18,21 +18,27 @@ $(document).on('keypress', '#toDoItem', function(e) {
 //toggle the item as completed
 $(document).on( 'click', '.itemToDo', function(e) {
 	e.preventDefault();
-	var $target = $(e.target),
-		$toDoValue = $target.text();
-		
-	var $this = $(this).index() + 1;
-	
-	if ($this <= 9) {
-		$this = '0' + $this;
-	}
-		
-	if ($target.hasClass('completed')) {
-		TD.addStorage($toDoValue, $this);		
-	} else {
-		TD.removeStorage($toDoValue, $this);
-	}
-	
-	$target.toggleClass('completed');
+	var $target = $(e.target);
+	$target.toggleClass('completed');	
+	TD.reNameKeys();
 });
 
+$('#itemsToDo').sortable({ 
+	cancel: '.completed',
+	beforeStop: function(event, ui) {
+		TD.reNameKeys();
+	}
+});	
+
+$('#toDoItem').droppable({
+	drop: function(event, ui) {
+		var uiContent = ui.draggable,
+			$this = $(this),
+			toDoItem = uiContent.text();
+		
+		$this.val(toDoItem);		//set the value of the input to the text of item dragged into it
+		$(uiContent.remove());		//remove that item from the Dom
+		TD.reNameKeys();
+	}
+});
+	
