@@ -5,20 +5,37 @@ if (typeof localStorage.length != "number") {
 //todoski name space
 var TD = TD || {};
 
+//Want to try adding a constructor for the DOM interaction elements instead
 //set storage & DOM methods
+
+// var Items = function(theList) {
+	// this.theList = $(theList);
+	// return this;
+// };
+// 
+// Items.prototype.add = function(item){
+	// var $listItemToDo = $('<li class="itemToDo">' + item + '</li>');
+	// console.log(this.theList);
+	// this.theList.append($listItemToDo);
+// };
+// 
+// var newList = new Items('#itemsToDo');
+
+
 TD = {
 	prefix : 'td_',
 	
 	/*
-	 * return 2 digit number
-	 * parm@ num : number
-	 * */
+	** return 2 digit number
+	** parm@ num : number
+	** 
+	*/
 	digit : function(num) {
 		var zero = '0';
 		if (num <= 9) {
 			return zero + num;
 		} else {
-			return num;
+			return num.toString();
 		}
 	},
 	

@@ -4,24 +4,25 @@
 <meta charset="utf-8">
 <title>Refactored date examples</title>
 	<link rel="stylesheet" href="css/qunit-1.14.0.css">
-	<script src="js/qunit.js"></script>
+	
 	<script src="js/jq.js"></script>
+	<script src="js/jquery-ui-1.10.4.custom.js"></script>
+	
 	<script src="js/init.js"></script>
 	<script src="js/messages.js"></script>
 	<script src="js/todo.js"></script>
 	
-	<script>
-		function storageTest(type, key, value) {
-			test( type, function() {
-				var key = key;
-				equal( TD.addStorage(value), localStorage['td_' + value]=value, "We expect value to be hello" );
-			});
-		};
-	</script>
+	<script src="js/qunit.js"></script>
+	<script src="js/test.js"></script>
+
 </head>
 
 	<body>
 		<div id="qunit"> </div>
+		<div id="qunit-fixture">
+			<ul id="itemsToDo">
+			</ul>
+		</div>
 	</body>
 	
 	
