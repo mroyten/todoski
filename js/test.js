@@ -1,4 +1,4 @@
-module('logic based');
+module('todoskiTests');
 
 	test( "TD.prefix is 'td_', this is the prefix for the localStorage keys for items 'todo'", 2, function() {
 		equal( TD.prefix,'td_', "TD.prefix is a string of 'td_'" );
@@ -24,10 +24,6 @@ module('logic based');
 		TD.clearKeys();
 		deepEqual( localStorage.length, 0, "returns correct localStorage length, after clearing storage" );
 	});
-
-module('DOM related');
-	
-
 		
 	test(" TD.index function - verifying that a unique index is created for each list item localStorage key", 3, function() {
 		//set up to list items for testing
